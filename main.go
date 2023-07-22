@@ -3,6 +3,10 @@ package main
 import (
 	"MemcLoadv2/prototest/prototest"
 	"flag"
+	"fmt"
+	"path/filepath"
+
+	"github.com/gammazero/workerpool"
 )
 
 type options struct {
@@ -21,6 +25,10 @@ var opts = options{
 var processed = 0
 var errors = 0
 
+func process_file(filename string) {
+	fmt.Println("Process file:", filename)
+}
+
 func main() {
 	flag.BoolVar(&opts.test, "t", false, "store_true")
 	flag.BoolVar(&opts.dry, "dry", false, "dry_true")
@@ -34,6 +42,16 @@ func main() {
 
 	if opts.test {
 		prototest.RunTest()
-		return
+	} else {
+		wp := workerpool.New(opts.num_of_workers)
+		files, _ := filepath.Glob(opts.pattern)
+		for i := range files {
+			var file string = files[i]
+			wp.Submit(func() {
+				process_file(file)
+			})
+		}
+
+		wp.StopWait()
 	}
 }
