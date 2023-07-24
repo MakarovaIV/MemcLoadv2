@@ -4,7 +4,10 @@ go 1.20
 
 require github.com/stretchr/testify v1.8.4
 
-require github.com/gammazero/deque v0.2.0 // indirect
+require (
+	github.com/bradfitz/gomemcache v0.0.0-20230611145640-acc696258285 // indirect
+	github.com/gammazero/deque v0.2.0 // indirect
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

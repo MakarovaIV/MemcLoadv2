@@ -16,4 +16,18 @@ Run options:
 - `--dvid`, default="127.0.0.1:33016"
 
 ### Run
-TBD
+
+- Run protobuf test
+```commandline
+go run main.go -t
+```
+
+- Run app in normal mode (with memcache)
+```commandline
+go run main.go
+```
+
+- Run app in dry mode (log instead of sending to memcahce)
+```commandline
+go run main.go -dry
+```
